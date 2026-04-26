@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Кафе Крис – Меню / Café Kris – Menu">
+  <title>Кафе Крис</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --bg:          #F7F2EA;
+      --surface:     #FDFAF5;
+      --surface-alt: #EDE6D8;
+      --primary:     #6B4423;
+      --primary-mid: #8B5E3C;
+      --secondary:   #C4A87A;
+      --accent:      #C9922A;
+      --accent-light:#F0D9A8;
+      --text:        #2E1A0E;
+      --muted:       #7A6248;
+      --border:      #DDD0BB;
+      --shadow:      rgba(46,26,14,.10);
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ── HEADER ── */
+    #site-header {
+      background: var(--primary);
+      color: #FAF7F2;
+      padding: 18px 16px 14px;
+      text-align: center;
+      position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 3px 14px rgba(0,0,0,.22);
+    }
+    #site-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: 3px;
+      line-height: 1.15;
+    }
+    .tagline {
+      font-size: .68rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-top: 3px;
+      font-weight: 300;
+    }
+    .header-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 11px;
+    }
+    .pill-btn {
+      border: 1.5px solid var(--secondary);
+      color: var(--secondary);
+      border-radius: 999px;
+      padding: 5px 18px;
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      transition: background .18s, color .18s, border-color .18s;
+    }
+    .pill-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── CAT NAV ── */
+    #cat-nav-wrap {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0; /* updated by JS */
+      z-index: 199;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    #cat-nav-wrap::-webkit-scrollbar { display: none; }
+    #cat-nav {
+      display: flex;
+      gap: 4px;
+      padding: 8px 12px;
+      white-space: nowrap;
+    }
+    .cnav-btn {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: .76rem;
+      font-weight: 700;
+      color: var(--muted);
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+    }
+    .cnav-btn:hover { background: var(--surface-alt); }
+    .cnav-btn.active { background: var(--primary); color: #FAF7F2; }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 14px 12px 56px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .cat-section { margin-bottom: 24px; scroll-margin-top: 130px; }
+    .cat-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-top: 6px;
+    }
+    .cat-title-row h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+    .cat-title-row .rule { flex: 1; height: 1px; background: var(--border); }
+
+    .cat-note {
+      font-size: .73rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 9px;
+      padding: 6px 10px;
+      background: var(--accent-light);
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+    }
+
+    /* ── MENU ITEM CARD ── */
+    .menu-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 13px;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: box-shadow .15s;
+    }
+    .menu-item:hover { box-shadow: 0 2px 14px var(--shadow); }
+
+    .item-info { flex: 1; min-width: 0; }
+
+    .item-name-primary {
+      font-family: 'Playfair Display', serif;
+      font-size: .96rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+    }
+    .item-name-secondary {
+      font-size: .76rem;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+    .item-desc {
+      font-size: .71rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 3px;
+      line-height: 1.45;
+    }
+    .item-vol {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-top: 4px;
+    }
+
+    .item-price { text-align: right; flex-shrink: 0; }
+    .price-eur { font-size: 1rem; font-weight: 700; color: var(--primary); }
+    .price-bgn { font-size: .73rem; color: var(--muted); margin-top: 2px; }
+    .price-na  { font-size: .8rem; color: var(--border); font-style: italic; }
+
+    /* ── FOOTER ── */
+    footer {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 16px 32px;
+      text-align: center;
+      font-size: .7rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      line-height: 1.8;
+    }
+    footer strong {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary-mid);
+      font-size: .88rem;
+    }
+  </style>
+</head>
+<body>
+
+<header id="site-header">
+  <h1>Кафе Крис</h1>
+  <div class="tagline">Café Kris &nbsp;·&nbsp; Меню / Menu</div>
+  <div class="header-row">
+    <button class="pill-btn active" id="btn-bg" onclick="setLang('bg')">БГ</button>
+    <button class="pill-btn"        id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<div id="cat-nav-wrap">
+  <div id="cat-nav"></div>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  <strong>Кафе Крис</strong><br>
+  Всички цени са в EUR (€) и BGN (лв.) с включен ДДС.<br>
+  All prices include VAT. Shown in EUR (€) and BGN (лв.).
+</footer>
+
+<script>
+// ================================================================
+// DATA
+// ================================================================
+const MENU = [
+  {
+    id: "hot",
+    bg: "Топли Напитки", en: "Hot Drinks",
+    items: [
+      { bg: 'Кафе "Спетема"',        en: "Coffee Spetema",       vol: "60 мл.",  eur: 1.02 },
+      { bg: 'Кафе Еспресо "Лаваца"', en: "Espresso Lavazza",      vol: "60 мл.",  eur: 1.28 },
+      { bg: "Кафе Без Кофеин",        en: "Decaf Coffee",          vol: "60 мл.",  eur: 1.02 },
+      { bg: "Виенско Кафе",           en: "Viennese Coffee",       vol: "100 мл.", eur: 1.53 },
+      { bg: "Кафе с мляко",           en: "Coffee with Milk",      vol: "100 мл.", eur: 1.28 },
+      { bg: "Нескафе",                en: "Nescafe",               vol: "100 мл.", eur: 1.28 },
+      { bg: "3в1",                    en: "3in1",                  vol: "100 мл.", eur: 1.02 },
+      { bg: "Капучино",               en: "Cappuccino",            vol: "200 мл.", eur: 2.04 },
+      { bg: "Матча Капучино",         en: "Matcha Cappuccino",     vol: "200 мл.", eur: 2.04 },
+      { bg: "Лате",                   en: "Latte",                 vol: "200 мл.", eur: 2.04 },
+      { bg: "Мляко с какао",          en: "Milk with Cocoa",       vol: "200 мл.", eur: 2.04 },
+      { bg: "Бейлис Кафе",            en: "Bailey's Coffee",       vol: "200 мл.", eur: 4.86,
+        dbg: "кафе, бейлис, сметана", den: "coffee, Baileys, cream" },
+      { bg: "Ирландско Кафе",         en: "Irish Coffee",          vol: "200 мл.", eur: 4.86,
+        dbg: "кафе, уиски, сметана",  den: "coffee, whiskey, cream" },
+      { bg: "Чай Билков",             en: "Herbal Tea",            vol: "200 мл.", eur: 1.53 },
+      { bg: "Чай Плодов",             en: "Fruit Tea",             vol: "200 мл.", eur: 1.53 },
+      { bg: "Английски Черен Чай",    en: "English Black Tea",     vol: "200 мл.", eur: 1.53 },
+    ]
+  },
+  {
+    id: "hot-plant",
+    bg: "Топли Напитки с Ядково Мляко", en: "Hot Drinks — Plant Milk",
+    note: { bg: "овес · бадем · кокос", en: "oat · almond · coconut" },
+    items: [
+      { bg: "Кафе с мляко",  en: "Coffee with Milk", vol: "100 мл.", eur: 1.79 },
+      { bg: "Капучино",      en: "Cappuccino",        vol: "200 мл.", eur: 2.56 },
+      { bg: "Мляко с какао", en: "Milk with Cocoa",   vol: "200 мл.", eur: 2.56 },
+      { bg: "Мляко с Нес",   en: "Milk with Nescafe", vol: "200 мл.", eur: 2.56 },
+    ]
+  },
+  {
+    id: "cold",
+    bg: "Студени Напитки", en: "Cold Drinks",
+    items: [
+      { bg: "Фрапе с мляко",   en: "Frappe with Milk",   eur: null },
+      { bg: "Черно Фрапе",     en: "Black Frappe",        eur: null },
+      { bg: "Фреш Портокал",   en: "Fresh Orange Juice",  eur: null },
+      { bg: "Фреш Грейпфрут",  en: "Fresh Grapefruit",    eur: null },
+      { bg: "Фреш Микс",       en: "Fresh Mix Juice",     eur: null },
+      { bg: "Ред Бул Кен",     en: "Red Bull Can",        vol: "250 мл.", eur: 2.50 },
+      { bg: "Протеинов Шейк",  en: "Protein Shake",       eur: null,
+        dbg: "бисквитка, шоколад, ягода, банан",
+        den: "cookie, chocolate, strawberry, banana" },
+      { bg: "Млечен Шейк",     en: "Milkshake",           eur: null,
+        dbg: "ягода, банан, ванилия, шоколад",
+        den: "strawberry, banana, vanilla, chocolate" },
+    ]
+  },
+  {
+    id: "iced",
+    bg: "Айс Напитки", en: "Iced Drinks",
+    items: [
+      { bg: "Айс Кола",  en: "Ice Coca-Cola", vol: "300 мл.", eur: 2.56 },
+      { bg: "Айс Нектар",en: "Ice Nectar",    vol: "300 мл.", eur: 3.07 },
+      { bg: "Айс Кафе",  en: "Ice Coffee",    vol: "250 мл.", eur: 2.56 },
+      { bg: "Айс Фрапе", en: "Ice Frappe",    vol: "300 мл.", eur: 3.07 },
+    ]
+  },
+  {
+    id: "soft",
+    bg: "Безалкохолни Напитки", en: "Soft Drinks",
+    items: [
+      { bg: "Кока Кола Продукти",     en: "Coca-Cola Products",   vol: "250 мл.", eur: 1.80 },
+      { bg: "Кока Кола Кен",          en: "Coca-Cola Can",        vol: "330 мл.", eur: 1.80 },
+      { bg: "Кока Кола ПЕТ",          en: "Coca-Cola PET",        vol: "500 мл.", eur: 1.80 },
+      { bg: "Газирана Вода",          en: "Sparkling Water",      vol: "250 мл.", eur: null },
+      { bg: "Минерална Вода",         en: "Mineral Water",        vol: "330 мл.", eur: null },
+      { bg: "Минерална Вода",         en: "Mineral Water",        vol: "500 мл.", eur: null },
+      { bg: 'Сок "Cappy"',            en: "Juice Cappy",          vol: "250 мл.", eur: 1.80 },
+      { bg: "Доматен Сок",            en: "Tomato Juice",         vol: "250 мл.", eur: null },
+      { bg: "Студен Чай Fuzetea",     en: "Ice Tea Fuzetea",      vol: "500 мл.", eur: null,
+        dbg: "манго & ананас, праскова, лимон, горски плод",
+        den: "mango & pineapple, peach, lemon, forest fruits" },
+    ]
+  },
+  {
+    id: "mocktails",
+    bg: "Безалкохолни Коктейли", en: "Mocktails",
+    items: [
+      { bg: "Безалкохолна Мента",  en: "Non-Alcoholic Mint",    vol: "300 мл.", eur: 2.56,
+        dbg: "безалк. мента, спрайт",                          den: "non-alc. mint, sprite" },
+      { bg: "Тропикал",            en: "Tropical",              vol: "250 мл.", eur: 2.56,
+        dbg: "безалк. мента, мляко",                           den: "non-alc. mint, milk" },
+      { bg: "Тропикал 2",          en: "Tropical 2",            vol: "250 мл.", eur: 2.56,
+        dbg: "сок портокал, сок праскова, гренадин",          den: "orange juice, peach juice, grenadine" },
+      { bg: "Цитронада",           en: "Citronade",             vol: "250 мл.", eur: 2.56,
+        dbg: "фреш лимон, захарен сироп, сода",               den: "lemon fresh, sugar syrup, soda" },
+      { bg: "Оранжада",            en: "Orangeade",             vol: "250 мл.", eur: 2.56,
+        dbg: "фреш портокал, захарен сироп, сода",            den: "orange fresh, sugar syrup, soda" },
+      { bg: "Безалкохолно Мохито", en: "Non-Alcoholic Mojito",  vol: "250 мл.", eur: 2.56,
+        dbg: "мента, сироп мохито, сода",                     den: "mint, mojito syrup, soda" },
+      { bg: "Лимонада",            en: "Lemonade",              vol: "400 мл.", eur: 2.56,
+        dbg: "бъз, лайм, ягода, мента, малина, горски плод, праскова",
+        den: "elderberry, lime, strawberry, mint, raspberry, forest fruit, peach" },
+    ]
+  },
+  {
+    id: "lemonade",
+    bg: "Домашна Лимонада", en: "Home Lemonade",
+    items: [
+      { bg: "Лимонада Захарна",    en: "Lemonade with Sugar",  vol: "400 мл.", eur: 3.00 },
+      { bg: "Лимонада Без Захар",  en: "Lemonade Sugar-Free",  vol: "400 мл.", eur: 3.00 },
+    ]
+  },
+  {
+    id: "cocktails",
+    bg: "Алкохолни Коктейли", en: "Cocktails",
+    items: [
+      { bg: "Текила Сънрайз",  en: "Tequila Sunrise",   vol: "250 мл.", eur: 4.86,
+        dbg: "текила, сок портокал, гренадин",           den: "tequila, orange juice, grenadine" },
+      { bg: "Маргарита",       en: "Margarita",          vol: "200 мл.", eur: 4.86,
+        dbg: "текила, коантро, лимонов сок",             den: "tequila, cointreau, lemon juice" },
+      { bg: "Санто Либре",     en: "Santo Libre",        vol: "250 мл.", eur: 4.86,
+        dbg: "текила, кола, лимонов сок",                den: "tequila, cola, lemon juice" },
+      { bg: "Зелена Отрова",   en: "Green Poison",       vol: "250 мл.", eur: 4.86,
+        dbg: "текила, портокал, лимонов сок, кюрасо, ананас",
+        den: "tequila, orange, lemon juice, curacao, pineapple" },
+      { bg: "Синя Лагуна",     en: "Blue Lagoon",        vol: "250 мл.", eur: 4.86,
+        dbg: "водка, кюрасо, спрайт, лед",               den: "vodka, curacao, sprite, ice" },
+      { bg: "Блъди Мери",      en: "Bloody Mary",        vol: "250 мл.", eur: 4.86,
+        dbg: "водка, доматен сок, лимонов сок, табаско",
+        den: "vodka, tomato juice, lemon juice, tabasco" },
+      { bg: "Секс на Плажа",   en: "Sex on the Beach",   vol: "250 мл.", eur: 4.86,
+        dbg: "водка, шнапс, гренадин",                   den: "vodka, schnapps, grenadine" },
+      { bg: "Том Колинс",      en: "Tom Collins",        vol: "250 мл.", eur: 4.86,
+        dbg: "водка, фреш лимон, сода, захарен сироп",   den: "vodka, lemon juice, soda, sugar syrup" },
+      { bg: "Аперол Шприц",    en: "Aperol Spritz",      vol: "250 мл.", eur: 4.86 },
+      { bg: "Дайкири с Ром",   en: "Daiquiri with Rum",  vol: "250 мл.", eur: 4.86,
+        dbg: "ром, лимонов сок, захарен сироп, натрошен лед",
+        den: "rum, lemon juice, sugar syrup, crushed ice" },
+      { bg: "Куба Либре",      en: "Cuba Libre",         vol: "250 мл.", eur: 4.86,
+        dbg: "ром, лимонов сок, кола, лед",              den: "rum, lemon juice, cola, ice" },
+      { bg: "Ягодово Дайкири", en: "Strawberry Daiquiri",vol: "250 мл.", eur: 4.86,
+        dbg: "ром, лимонов сок, захарен сироп, сироп ягода",
+        den: "rum, lemon juice, sugar syrup, strawberry syrup" },
+      { bg: "Пина Колада",     en: "Pina Colada",        vol: "250 мл.", eur: 4.86,
+        dbg: "ром, кокосов ликьор, ананасов сок, лед, сметана",
+        den: "rum, coconut liqueur, pineapple juice, ice, cream" },
+      { bg: "Розов Ром",       en: "Pink Rum",           vol: "250 мл.", eur: 4.86,
+        dbg: "ром, тоник, лимонов сок, гренадин",        den: "rum, tonic, lemon juice, grenadine" },
+      { bg: "Мохито",          en: "Mojito",             vol: "250 мл.", eur: 4.86 },
+      { bg: "Крис",            en: "Chris",              vol: "250 мл.", eur: 4.86,
+        dbg: "джин, кокос, ананас, тоник",               den: "gin, coconut, pineapple, tonic" },
+      { bg: "Джин Фис",        en: "Gin Fizz",           vol: "250 мл.", eur: 4.86,
+        dbg: "джин, лимонов сок, сода, лед",             den: "gin, lemon juice, soda, ice" },
+      { bg: "Мартини",         en: "Martini",            vol: "200 мл.", eur: 4.86,
+        dbg: "джин, мартини, лимонов сок",               den: "gin, martini, lemon juice" },
+      { bg: "Кампари Ориндж",  en: "Campari Orange",     vol: "250 мл.", eur: 4.86,
+        dbg: "Кампари, сок портокал",                    den: "Campari, orange juice" },
+    ]
+  },
+  {
+    id: "beer",
+    bg: "Бира", en: "Beer",
+    items: [
+      { bg: "Шуменско Наливно",              en: "Shumensko Draft",              vol: "330 мл.", eur: 1.53 },
+      { bg: "Шуменско Наливно",              en: "Shumensko Draft",              vol: "500 мл.", eur: 1.79 },
+      { bg: "Шуменско",                      en: "Shumensko",                    vol: "500 мл.", eur: 1.79 },
+      { bg: "Шуменско Бомбичка",             en: "Shumensko Special",            vol: "330 мл.", eur: 1.53 },
+      { bg: "Пиринско",                      en: "Pirinsko",                     vol: "500 мл.", eur: 1.79 },
+      { bg: "Пиринско Младо Пиво",           en: "Pirinsko Young Beer",          vol: "330 мл.", eur: 1.53 },
+      { bg: "Туборг",                        en: "Tuborg",                       vol: "500 мл.", eur: 2.04 },
+      { bg: "Будвайзер Будвар",              en: "Budweiser Budwar",             vol: "500 мл.", eur: 2.04 },
+      { bg: "Карлсберг",                     en: "Carlsberg",                    vol: "500 мл.", eur: 2.04 },
+      { bg: "Жатецки Хус",                   en: "Zatetski Hus",                 vol: "500 мл.", eur: 2.04 },
+      { bg: "Бургаско / Каменица / Загорка", en: "Burgasko / Kamenitza / Zagorka", vol: "500 мл.", eur: 1.53 },
+      { bg: "Карлсберг Безалкохолна",        en: "Carlsberg Non-Alcoholic",      vol: "500 мл.", eur: 2.04 },
+      { bg: "Самърсби",                      en: "Somersby",                     vol: "330 мл.", eur: 2.04 },
+    ]
+  },
+  {
+    id: "wine",
+    bg: "Вино", en: "Wine",
+    items: [
+      { bg: "Шардоне / Траминер (чаша)",  en: "Chardonnay / Traminer (glass)",
+        dbg: "Бяло вино", den: "White wine", vol: "150 мл.", eur: 1.79 },
+      { bg: "Каберне / Мерло (чаша)",     en: "Cabernet / Merlot (glass)",
+        dbg: "Червено вино", den: "Red wine", vol: "150 мл.", eur: 1.79 },
+    ]
+  },
+  {
+    id: "whiskey",
+    bg: "Уиски", en: "Whiskey",
+    items: [
+      { bg: "Уиски БГ",       en: "Whiskey BG",      vol: "50 мл.", eur: 1.53 },
+      { bg: "Джони Уокър",    en: "Johnnie Walker",  vol: "50 мл.", eur: 2.04, dbg: "Скоч",      den: "Scotch" },
+      { bg: "100 Гайди",      en: "100 Pipers",      vol: "50 мл.", eur: 2.04, dbg: "Скоч",      den: "Scotch" },
+      { bg: "Балантайс",      en: "Ballantine's",    vol: "50 мл.", eur: 2.04, dbg: "Скоч",      den: "Scotch" },
+      { bg: "J&B",            en: "J&B",             vol: "50 мл.", eur: 2.04, dbg: "Скоч",      den: "Scotch" },
+      { bg: "Кардю",          en: "Cardhu",          vol: "50 мл.", eur: 3.58, dbg: "Скоч",      den: "Scotch" },
+      { bg: "Чивас Регал",    en: "Chivas Regal",    vol: "50 мл.", eur: 3.58, dbg: "Скоч",      den: "Scotch" },
+      { bg: "Тюламор Дю",     en: "Tullamore Dew",   vol: "50 мл.", eur: 2.04, dbg: "Ирландско", den: "Irish" },
+      { bg: "Джеймисън",      en: "Jameson",         vol: "50 мл.", eur: 2.04, dbg: "Ирландско", den: "Irish" },
+      { bg: "Бушмилс",        en: "Bushmills",       vol: "50 мл.", eur: 2.04, dbg: "Ирландско", den: "Irish" },
+      { bg: "Джак Даниелс",   en: "Jack Daniel's",   vol: "50 мл.", eur: 3.07, dbg: "Бърбън",    den: "Bourbon" },
+      { bg: "Джим Бийм",      en: "Jim Beam",        vol: "50 мл.", eur: 2.04, dbg: "Бърбън",    den: "Bourbon" },
+      { bg: "4 Рози",         en: "4 Roses",         vol: "50 мл.", eur: 2.04, dbg: "Бърбън",    den: "Bourbon" },
+    ]
+  },
+  {
+    id: "vodka-gin",
+    bg: "Водка & Джин", en: "Vodka & Gin",
+    items: [
+      { bg: "Водка Внос", en: "Imported Vodka", vol: "50 мл.", eur: 2.50 },
+      { bg: "Водка БГ",   en: "Vodka BG",       vol: "50 мл.", eur: 1.50 },
+      { bg: "Джин Внос",  en: "Imported Gin",   vol: "50 мл.", eur: 2.50 },
+      { bg: "Джин БГ",    en: "Gin BG",         vol: "50 мл.", eur: 1.50 },
+    ]
+  },
+  {
+    id: "rum",
+    bg: "Ром", en: "Rum",
+    items: [
+      { bg: "Ром Атлантик", en: "Rum Atlantic", vol: "50 мл.", eur: 1.28,
+        dbg: "бял, червен", den: "white, red" },
+      { bg: "Бакарди",      en: "Bacardi",       vol: "50 мл.", eur: 2.56 },
+    ]
+  },
+  {
+    id: "vermouth",
+    bg: "Вермут", en: "Vermouth",
+    items: [
+      { bg: "Кампари",              en: "Campari",              vol: "50 мл.", eur: 2.56 },
+      { bg: "Мартини Бяло / Драй",  en: "Martini Bianco / Dry", vol: "50 мл.", eur: 1.53 },
+    ]
+  },
+  {
+    id: "liqueurs",
+    bg: "Ликьори", en: "Liqueurs",
+    items: [
+      { bg: "Бейлис",        en: "Baileys",        vol: "50 мл.", eur: null },
+      { bg: "Малибу",        en: "Malibu",         vol: "50 мл.", eur: null },
+      { bg: "Шнапс",         en: "Schnaps",        vol: "50 мл.", eur: null,
+        dbg: "праскова, кокос",                    den: "peach, coconut" },
+      { bg: "Мента",         en: "Mint Liqueur",   vol: "50 мл.", eur: null },
+      { bg: "Тия Мария",     en: "Tia Maria",      vol: "50 мл.", eur: 2.56 },
+      { bg: "Маргот",        en: "Margot",         vol: "50 мл.", eur: 1.28 },
+      { bg: "Калуа",         en: "Kahlua",         vol: "50 мл.", eur: 2.56 },
+      { bg: "Йегермайстер",  en: "Jägermeister",   vol: "50 мл.", eur: 2.04 },
+    ]
+  },
+  {
+    id: "spirits",
+    bg: "Алкохол", en: "Spirits",
+    items: [
+      { bg: "Ракия Маркова",      en: "Branded Rakia",     vol: "50 мл.", eur: 1.53 },
+      { bg: "Ракия Обикновена",   en: "Ordinary Rakia",    vol: "50 мл.", eur: 1.28 },
+      { bg: "Българска Мастика",  en: "Bulgarian Mastika", vol: "50 мл.", eur: 1.28 },
+      { bg: "Узо Пломари",        en: "Ouzo Plomari",      vol: "50 мл.", eur: 1.53 },
+      { bg: "Бренди Плиска",      en: "Brandy Pliska",     vol: "50 мл.", eur: 1.53 },
+      { bg: "Текила БГ",          en: "Tequila BG",        vol: "25 мл.", eur: 1.00 },
+    ]
+  },
+  {
+    id: "desserts",
+    bg: "Десерти", en: "Desserts",
+    items: [
+      { bg: "Сладолед",       en: "Ice Cream",    vol: "300 мл.", eur: 4.00,
+        dbg: "ванилия, шоколад, ягода", den: "vanilla, chocolate, strawberry" },
+      { bg: "Мелба Крис",     en: "Sundae Kris",   vol: "350 мл.", eur: 7.00 },
+      { bg: "Мелба Банан",    en: "Sundae Banana", vol: "350 мл.", eur: 7.00 },
+      { bg: "Плодова Салата", en: "Fruit Salad",   vol: "350 мл.", eur: 7.00 },
+    ]
+  },
+  {
+    id: "nuts",
+    bg: "Ядки", en: "Nuts",
+    items: [
+      { bg: "Фъстъци", en: "Peanuts", vol: "70 гр.", eur: 1.53 },
+      { bg: "Бадеми",  en: "Almonds", vol: "70 гр.", eur: 2.56 },
+      { bg: "Кашу",    en: "Cashew",  vol: "70 гр.", eur: 2.56 },
+    ]
+  },
+];
+
+// ================================================================
+// STATE & UTILS
+// ================================================================
+let lang = 'bg';
+
+function bgn(eur) {
+  return (Math.round(eur * 195.583) / 100).toFixed(2);
+}
+
+// ================================================================
+// RENDER
+// ================================================================
+function render() {
+  const main    = document.getElementById('main');
+  const navEl   = document.getElementById('cat-nav');
+  main.innerHTML = '';
+  navEl.innerHTML = '';
+
+  MENU.forEach((cat, i) => {
+    // ── Nav button
+    const btn = document.createElement('button');
+    btn.className = 'cnav-btn' + (i === 0 ? ' active' : '');
+    btn.dataset.id = cat.id;
+    btn.textContent = lang === 'bg' ? cat.bg : cat.en;
+    btn.addEventListener('click', () => {
+      document.getElementById('sec-' + cat.id)
+        .scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    navEl.appendChild(btn);
+
+    // ── Section
+    const sec = document.createElement('section');
+    sec.className = 'cat-section';
+    sec.id = 'sec-' + cat.id;
+
+    // Title row
+    const titleRow = document.createElement('div');
+    titleRow.className = 'cat-title-row';
+    titleRow.innerHTML = `<h2>${lang === 'bg' ? cat.bg : cat.en}</h2><div class="rule"></div>`;
+    sec.appendChild(titleRow);
+
+    // Optional note
+    if (cat.note) {
+      const note = document.createElement('div');
+      note.className = 'cat-note';
+      note.textContent = lang === 'bg' ? cat.note.bg : cat.note.en;
+      sec.appendChild(note);
+    }
+
+    // Items
+    cat.items.forEach(item => {
+      const primaryName   = lang === 'bg' ? item.bg : item.en;
+      const secondaryName = lang === 'bg' ? item.en : item.bg;
+      const desc = lang === 'bg' ? (item.dbg || '') : (item.den || '');
+
+      const card = document.createElement('div');
+      card.className = 'menu-item';
+      card.innerHTML = `
+        <div class="item-info">
+          <div class="item-name-primary">${primaryName}</div>
+          <div class="item-name-secondary">${secondaryName}</div>
+          ${desc  ? `<div class="item-desc">${desc}</div>` : ''}
+          ${item.vol ? `<div class="item-vol">${item.vol}</div>` : ''}
+        </div>
+        <div class="item-price">
+          ${item.eur !== null && item.eur !== undefined
+            ? `<div class="price-eur">${item.eur.toFixed(2)} €</div>
+               <div class="price-bgn">${bgn(item.eur)} лв.</div>`
+            : `<div class="price-na">—</div>`}
+        </div>`;
+      sec.appendChild(card);
+    });
+
+    main.appendChild(sec);
+  });
+
+  positionCatNav();
+  observeSections();
+}
+
+// ================================================================
+// STICKY NAV OFFSET
+// ================================================================
+function positionCatNav() {
+  const h = document.getElementById('site-header').offsetHeight;
+  document.getElementById('cat-nav-wrap').style.top = h + 'px';
+  // update scroll-margin-top on all sections
+  const totalSticky = h + document.getElementById('cat-nav-wrap').offsetHeight;
+  document.querySelectorAll('.cat-section').forEach(s => {
+    s.style.scrollMarginTop = (totalSticky + 8) + 'px';
+  });
+}
+
+// ================================================================
+// INTERSECTION → ACTIVE NAV
+// ================================================================
+function observeSections() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const id = e.target.id.replace('sec-', '');
+      document.querySelectorAll('.cnav-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.id === id);
+      });
+      const activeBtn = document.querySelector(`.cnav-btn[data-id="${id}"]`);
+      if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 });
+
+  document.querySelectorAll('.cat-section').forEach(s => io.observe(s));
+}
+
+// ================================================================
+// LANG TOGGLE
+// ================================================================
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-bg').classList.toggle('active', l === 'bg');
+  document.getElementById('btn-en').classList.toggle('active', l === 'en');
+  render();
+}
+
+// ================================================================
+// INIT
+// ================================================================
+render();
+window.addEventListener('resize', positionCatNav);
+</script>
+</body>
+</html>
