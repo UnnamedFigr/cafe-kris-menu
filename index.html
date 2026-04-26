@@ -82,169 +82,25 @@
 <footer><strong>Кафе Крис</strong><br>Всички цени са в EUR и BGN с включен ДДС. / All prices include VAT.</footer>
 <script>
 const MENU=[
-{id:"hot",bg:"Топли Напитки",en:"Hot Drinks",items:[
-{bg:'Кафе "Спетема"',en:'Coffee Espresso "Spetema"',vol:"60 мл.",eur:1.50},
-{bg:'Кафе "Лаваца"',en:"Coffee Espresso Lavazza",vol:"60 мл.",eur:1.80},
-{bg:"Кафе Без Кофеин",en:"Decaffeinated Coffee",vol:"60 мл.",eur:1.50},
-{bg:"Виенско Кафе",en:"Viennese Coffee",vol:"100 мл.",eur:2.00},
-{bg:"Кафе с мляко",en:"Coffee with Milk",vol:"100 мл.",eur:1.80},
-{bg:"Нескафе",en:"Nescafe",vol:"100 мл.",eur:1.50},
-{bg:"3в1",en:"3in1",vol:"100 мл.",eur:1.50},
-{bg:"Капучино",en:"Cappuccino",vol:"200 мл.",eur:2.50},
-{bg:"Матча Капучино",en:"Matcha Cappuccino",vol:"200 мл.",eur:2.50},
-{bg:"Лате",en:"Latte",vol:"200 мл.",eur:2.50},
-{bg:"Капучино/Лате с вкус",en:"Flavored Cappuccino / Latte",vol:"200 мл.",eur:3.00},
-{bg:"Мляко с какао",en:"Milk with Cocoa",vol:"200 мл.",eur:2.00},
-{bg:"Бейлис Кафе",en:"Bailey's Coffee",vol:"200 мл.",eur:6.00,dbg:"кафе, бейлис, сметана",den:"coffee, Baileys, cream"},
-{bg:"Ирландско Кафе",en:"Irish Coffee",vol:"200 мл.",eur:6.00,dbg:"кафе, уиски, сметана",den:"coffee, whiskey, cream"},
-{bg:"Чай Билков",en:"Herbal Tea",vol:"200 мл.",eur:1.50},
-{bg:"Чай Плодов",en:"Fruit Tea",vol:"200 мл.",eur:1.50},
-{bg:"Английски Черен Чай",en:"English Black Tea",vol:"200 мл.",eur:1.50}
-]},
-{id:"hot-plant",bg:"Топли Напитки с Ядково Мляко",en:"Hot Drinks — Plant Milk",note:{bg:"овес · бадем · кокос",en:"oat · almond · coconut"},items:[
-{bg:"Кафе с мляко",en:"Coffee with Milk",vol:"100 мл.",eur:1.80},
-{bg:"Капучино",en:"Cappuccino",vol:"200 мл.",eur:3.00},
-{bg:"Мляко с какао",en:"Milk with Cocoa",vol:"200 мл.",eur:3.00},
-{bg:"Мляко с Нес",en:"Milk with Nescafe",vol:"200 мл.",eur:3.00}
-]},
-{id:"cold",bg:"Студени Напитки",en:"Cold Drinks",items:[
-{bg:"Фрапе с мляко",en:"Frappe with Milk",vol:"250 мл.",eur:2.50},
-{bg:"Черно Фрапе",en:"Black Frappe",vol:"250 мл.",eur:2.00},
-{bg:"Фреш Портокал",en:"Fresh Orange Juice",vol:"250 мл.",eur:3.50},
-{bg:"Фреш Грейпфрут",en:"Fresh Grapefruit",vol:"250 мл.",eur:3.50},
-{bg:"Фреш Микс",en:"Fresh Mix Juice",vol:"250 мл.",eur:3.50},
-{bg:"Ред Бул Кен",en:"Red Bull Can",vol:"250 мл.",eur:3.50},
-{bg:"Протеинов Шейк",en:"Protein Shake",vol:"300 мл.",eur:3.50,dbg:"бисквитка, шоколад, ягода, банан",den:"cookie, chocolate, strawberry, banana"},
-{bg:"Млечен Шейк",en:"Milkshake",vol:"300 мл.",eur:3.50,dbg:"ягода, банан, ванилия, шоколад",den:"strawberry, banana, vanilla, chocolate"}
-]},
-{id:"iced",bg:"Айс Напитки",en:"Iced Drinks",items:[
-{bg:"Айс Кола",en:"Ice Coca-Cola",vol:"300 мл.",eur:3.50},
-{bg:"Айс Нектар",en:"Ice Nectar",vol:"300 мл.",eur:3.50},
-{bg:"Айс Кафе",en:"Ice Coffee",vol:"250 мл.",eur:3.50},
-{bg:"Айс Фрапе",en:"Ice Frappe",vol:"300 мл.",eur:3.50}
-]},
-{id:"soft",bg:"Безалкохолни Напитки",en:"Soft Drinks",items:[
-{bg:"Кока Кола Продукти",en:"Coca-Cola Products",vol:"250 мл.",eur:1.80},
-{bg:"Кока Кола Кен",en:"Coca-Cola Can",vol:"330 мл.",eur:1.80},
-{bg:"Кока Кола ПЕТ",en:"Coca-Cola PET",vol:"500 мл.",eur:1.80},
-{bg:"Газирана Вода",en:"Sparkling Water",vol:"250 мл.",eur:1.50},
-{bg:"Минерална Вода",en:"Mineral Water",vol:"330 мл.",eur:1.00},
-{bg:"Минерална Вода",en:"Mineral Water",vol:"500 мл.",eur:1.30},
-{bg:'Сок "Cappy"',en:"Juice Cappy",vol:"250 мл.",eur:1.80},
-{bg:"Доматен Сок",en:"Tomato Juice",vol:"250 мл.",eur:1.80},
-{bg:"Студен Чай Fuzetea",en:"Ice Tea Fuzetea",vol:"500 мл.",eur:2.00,dbg:"манго & ананас, праскова, лимон, горски плод",den:"mango & pineapple, peach, lemon, forest fruits"}
-]},
-{id:"mocktails",bg:"Безалкохолни Коктейли",en:"Mocktails",items:[
-{bg:"Безалкохолна Мента",en:"Non-Alcoholic Mint",vol:"300 мл.",eur:3.50,dbg:"безалк. мента, спрайт",den:"non-alc. mint, sprite"},
-{bg:"Тропикал",en:"Tropical",vol:"250 мл.",eur:3.50,dbg:"безалк. мента, мляко",den:"non-alc. mint, milk"},
-{bg:"Тропикал 2",en:"Tropical 2",vol:"250 мл.",eur:3.50,dbg:"сок портокал, сок праскова, гренадин",den:"orange juice, peach juice, grenadine"},
-{bg:"Цитронада",en:"Citronade",vol:"250 мл.",eur:3.50,dbg:"фреш лимон, захарен сироп, сода",den:"lemon fresh, sugar syrup, soda"},
-{bg:"Оранжада",en:"Orangeade",vol:"250 мл.",eur:3.50,dbg:"фреш портокал, захарен сироп, сода",den:"orange fresh, sugar syrup, soda"},
-{bg:"Безалкохолно Мохито",en:"Non-Alcoholic Mojito",vol:"250 мл.",eur:3.50,dbg:"мента, сироп мохито, сода",den:"mint, mojito syrup, soda"},
-{bg:"Лимонада",en:"Lemonade",vol:"400 мл.",eur:3.00,dbg:"бъз, лайм, ягода, мента, малина, горски плод, праскова",den:"elderberry, lime, strawberry, mint, raspberry, forest fruit, peach"}
-]},
-{id:"cocktails",bg:"Алкохолни Коктейли",en:"Cocktails",items:[
-{bg:"Текила Сънрайз",en:"Tequila Sunrise",vol:"250 мл.",eur:6.00,dbg:"текила, сок портокал, гренадин",den:"tequila, orange juice, grenadine"},
-{bg:"Маргарита",en:"Margarita",vol:"200 мл.",eur:6.00,dbg:"текила, коантро, лимонов сок",den:"tequila, cointreau, lemon juice"},
-{bg:"Санто Либре",en:"Santo Libre",vol:"250 мл.",eur:6.00,dbg:"текила, кола, лимонов сок",den:"tequila, cola, lemon juice"},
-{bg:"Зелена Отрова",en:"Green Poison",vol:"250 мл.",eur:6.00,dbg:"текила, портокал, лимонов сок, кюрасо, ананас",den:"tequila, orange, lemon juice, curacao, pineapple"},
-{bg:"Синя Лагуна",en:"Blue Lagoon",vol:"250 мл.",eur:6.00,dbg:"водка, кюрасо, спрайт, лед",den:"vodka, curacao, sprite, ice"},
-{bg:"Блъди Мери",en:"Bloody Mary",vol:"250 мл.",eur:6.00,dbg:"водка, доматен сок, лимонов сок, табаско",den:"vodka, tomato juice, lemon juice, tabasco"},
-{bg:"Секс на Плажа",en:"Sex on the Beach",vol:"250 мл.",eur:6.00,dbg:"водка, шнапс, гренадин",den:"vodka, schnapps, grenadine"},
-{bg:"Том Колинс",en:"Tom Collins",vol:"250 мл.",eur:6.00,dbg:"водка, фреш лимон, сода, захарен сироп",den:"vodka, lemon juice, soda, sugar syrup"},
-{bg:"Аперол Шприц",en:"Aperol Spritz",vol:"250 мл.",eur:6.00,dbg:"Аперол, сода, Розе",den:"Aperol, sparkling water, Rose wine"},
-{bg:"Дайкири с Ром",en:"Daiquiri with Rum",vol:"250 мл.",eur:6.00,dbg:"ром, лимонов сок, захарен сироп, натрошен лед",den:"rum, lemon juice, sugar syrup, crushed ice"},
-{bg:"Куба Либре",en:"Cuba Libre",vol:"250 мл.",eur:6.00,dbg:"ром, лимонов сок, кола, лед",den:"rum, lemon juice, cola, ice"},
-{bg:"Ягодово Дайкири",en:"Strawberry Daiquiri",vol:"250 мл.",eur:6.00,dbg:"ром, лимонов сок, захарен сироп, сироп ягода",den:"rum, lemon juice, sugar syrup, strawberry syrup"},
-{bg:"Пина Колада",en:"Pina Colada",vol:"250 мл.",eur:6.00,dbg:"ром, кокосов ликьор, ананасов сок, лед, сметана",den:"rum, coconut liqueur, pineapple juice, ice, cream"},
-{bg:"Розов Ром",en:"Pink Rum",vol:"250 мл.",eur:6.00,dbg:"ром, тоник, лимонов сок, гренадин",den:"rum, tonic, lemon juice, grenadine"},
-{bg:"Мохито",en:"Mojito",vol:"250 мл.",eur:6.00},
-{bg:"Крис",en:"Chris",vol:"250 мл.",eur:6.00,dbg:"джин, кокос, ананас, тоник",den:"gin, coconut, pineapple, tonic"},
-{bg:"Джин Фис",en:"Gin Fizz",vol:"250 мл.",eur:6.00,dbg:"джин, лимонов сок, сода, лед",den:"gin, lemon juice, soda, ice"},
-{bg:"Мартини",en:"Martini",vol:"200 мл.",eur:6.00,dbg:"джин, мартини, лимонов сок",den:"gin, martini, lemon juice"},
-{bg:"Кампари Ориндж",en:"Campari Orange",vol:"250 мл.",eur:6.00,dbg:"Кампари, сок портокал",den:"Campari, orange juice"}
-]},
-{id:"beer-bg",bg:"Бира",en:"Beer",items:[
-{bg:"Шуменско Наливно",en:"Shumensko Draft",vol:"330 мл.",eur:1.80},
-{bg:"Шуменско Наливно",en:"Shumensko Draft",vol:"500 мл.",eur:2.00},
-{bg:"Шуменско",en:"Shumensko",vol:"500 мл.",eur:2.00},
-{bg:"Шуменско Бомбичка",en:"Shumensko Special",vol:"330 мл.",eur:1.80},
-{bg:"Пиринско",en:"Pirinsko",vol:"500 мл.",eur:2.00},
-{bg:"Пиринско Младо Пиво",en:"Pirinsko Young Beer",vol:"330 мл.",eur:1.80},
-{bg:"Бургаско / Каменица / Загорка",en:"Burgasko / Kamenitza / Zagorka",vol:"500 мл.",eur:2.00}
-]},
-{id:"beer-import",bg:"Бира Внос",en:"Import Beer",items:[
-{bg:"Туборг",en:"Tuborg",vol:"500 мл.",eur:2.50},
-{bg:"Будвайзер Будвайсер",en:"Budweiser Budvar",vol:"500 мл.",eur:2.50},
-{bg:"Карлсберг",en:"Carlsberg",vol:"500 мл.",eur:2.50},
-{bg:"Жатецки Хус",en:"Zatetski Hus",vol:"500 мл.",eur:2.50},
-{bg:"Карлсберг Безалкохолна",en:"Carlsberg Non-Alcoholic",vol:"500 мл.",eur:2.50},
-{bg:"Самърсби",en:"Somersby",vol:"330 мл.",eur:2.50}
-]},
-{id:"wine",bg:"Вино",en:"Wine",items:[
-{bg:"Шардоне / Траминер (чаша)",en:"Chardonnay / Traminer (glass)",dbg:"Бяло вино",den:"White wine",vol:"150 мл.",eur:1.79},
-{bg:"Каберне / Мерло (чаша)",en:"Cabernet / Merlot (glass)",dbg:"Червено вино",den:"Red wine",vol:"150 мл.",eur:1.79}
-]},
-{id:"whiskey-bg",bg:"Уиски",en:"Whiskey",items:[
-{bg:"Уиски",en:"Whiskey",vol:"50 мл.",eur:2.00}
-]},
-{id:"whiskey-import",bg:"Уиски Внос",en:"Import Whiskey",items:[
-{bg:"Джони Уокър",en:"Johnnie Walker",vol:"50 мл.",eur:2.50},
-{bg:"100 Гайди",en:"100 Pipers",vol:"50 мл.",eur:2.50},
-{bg:"Балантайс",en:"Ballantine's",vol:"50 мл.",eur:2.50},
-{bg:"J&B",en:"J&B",vol:"50 мл.",eur:2.50},
-{bg:"Тюламор Дю",en:"Tullamore Dew",vol:"50 мл.",eur:2.50},
-{bg:"Джеймисън",en:"Jameson",vol:"50 мл.",eur:2.50},
-{bg:"Бушмилс",en:"Bushmills",vol:"50 мл.",eur:2.50},
-{bg:"Джим Бийм",en:"Jim Beam",vol:"50 мл.",eur:2.50},
-{bg:"4 Рози",en:"4 Roses",vol:"50 мл.",eur:2.50},
-{bg:"Чивас Регал",en:"Chivas Regal",vol:"50 мл.",eur:3.50},
-{bg:"Джак Даниелс",en:"Jack Daniel's",vol:"50 мл.",eur:3.50}
-]},
-{id:"vodka-gin",bg:"Водка & Джин",en:"Vodka & Gin",items:[
-{bg:"Водка Внос",en:"Imported Vodka",vol:"50 мл.",eur:2.50},
-{bg:"Водка БГ",en:"Vodka BG",vol:"50 мл.",eur:1.50},
-{bg:"Джин Внос",en:"Imported Gin",vol:"50 мл.",eur:2.50},
-{bg:"Джин БГ",en:"Gin BG",vol:"50 мл.",eur:1.50}
-]},
-{id:"rum",bg:"Ром",en:"Rum",items:[
-{bg:"Ром",en:"Rum",vol:"50 мл.",eur:1.50,dbg:"бял, червен",den:"white, red"},
-{bg:"Бакарди",en:"Bacardi",vol:"50 мл.",eur:3.00}
-]},
-{id:"vermouth",bg:"Вермут",en:"Vermouth",items:[
-{bg:"Кампари",en:"Campari",vol:"50 мл.",eur:2.50},
-{bg:"Мартини Бяло / Драй",en:"Martini Bianco / Dry",vol:"50 мл.",eur:2.00}
-]},
-{id:"liqueurs",bg:"Ликьори",en:"Liqueurs",items:[
-{bg:"Бейлис",en:"Baileys",vol:"50 мл.",eur:3.00},
-{bg:"Малибу",en:"Malibu",vol:"50 мл.",eur:3.00},
-{bg:"Шнапс",en:"Schnaps",vol:"50 мл.",eur:1.50,dbg:"праскова, кокос",den:"peach, coconut"},
-{bg:"Мента",en:"Mint Liqueur",vol:"50 мл.",eur:1.50},
-{bg:"Тия Мария",en:"Tia Maria",vol:"50 мл.",eur:3.00},
-{bg:"Маргот",en:"Margot",vol:"50 мл.",eur:3.00},
-{bg:"Калуа",en:"Kahlua",vol:"50 мл.",eur:3.00},
-{bg:"Йегермайстер",en:"Jagermeister",vol:"50 мл.",eur:3.00}
-]},
-{id:"spirits",bg:"Алкохол",en:"Spirits",items:[
-{bg:"Ракия Маркова",en:"Branded Rakia",vol:"50 мл.",eur:2.00},
-{bg:"Ракия Обикновена",en:"Ordinary Rakia",vol:"50 мл.",eur:1.50},
-{bg:"Българска Мастика",en:"Bulgarian Mastika",vol:"50 мл.",eur:1.50},
-{bg:'Узо Пломари / Узо "12"',en:'Ouzo Plomari / Ouzo "12"',vol:"50 мл.",eur:2.00},
-{bg:"Бренди Плиска",en:"Brandy Pliska",vol:"50 мл.",eur:2.00},
-{bg:"Текила БГ",en:"Tequila BG",vol:"25 мл.",eur:1.00}
-]},
-{id:"desserts",bg:"Десерти",en:"Desserts",items:[
-{bg:"Топка Сладолед",en:"Ice Cream Ball",vol:"100 мл.",eur:1.50,dbg:"ванилия, шоколад, ягода",den:"vanilla, chocolate, strawberry"},
-{bg:"Сладолед (3 топки)",en:"Ice Cream (3 scoops)",vol:"300 мл.",eur:4.00,dbg:"ванилия, шоколад, ягода",den:"vanilla, chocolate, strawberry"},
-{bg:"Мелба Крис",en:"Sundae Kris",vol:"350 гр.",eur:7.00},
-{bg:"Мелба Банан",en:"Sundae Banana",vol:"350 гр.",eur:7.00},
-{bg:"Плодова Салата",en:"Fruit Salad",vol:"350 гр.",eur:7.00}
-]},
-{id:"nuts",bg:"Ядки",en:"Nuts",items:[
-{bg:"Фъстъци",en:"Peanuts",vol:"70 гр.",eur:2.00},
-{bg:"Бадеми",en:"Almonds",vol:"70 гр.",eur:3.00},
-{bg:"Кашу",en:"Cashew",vol:"70 гр.",eur:3.00}
-]}
+{id:'hot',bg:'Топли Напитки',en:'Hot Drinks',items:[{bg:'Кафе "Спетема"',en:'Coffee Espresso "Spetema"',vol:'60 мл.',eur:1.50},{bg:'Кафе "Лаваца"',en:'Coffee Espresso Lavazza',vol:'60 мл.',eur:1.80},{bg:'Кафе Без Кофеин',en:'Decaffeinated Coffee',vol:'60 мл.',eur:1.50},{bg:'Виенско Кафе',en:'Vienesse Coffee',vol:'100 мл.',eur:2.00},{bg:'Бейлис Кафе',en:'Bailey\'s Coffee',dbg:'кафе, бейлис, сметана',den:'coffee, Baileys, cream',vol:'200 мл.',eur:6.00},{bg:'Ирландско Кафе',en:'Irish Coffee',dbg:'кафе, уиски, сметана',den:'coffee, whiskey, cream',vol:'200 мл.',eur:6.00},{bg:'Нескафе',en:'Nescafe',vol:'100 мл.',eur:1.50},{bg:'Капучино/Лате с вкус',en:'Flavored Cappuccino/Latte',vol:'200 мл.',eur:3.00},{bg:'Капучино',en:'Cappuccino',vol:'200 мл.',eur:2.50},{bg:'Матча Капучино',en:'Matcha Cappuccino',vol:'200 мл.',eur:2.50},{bg:'Лате',en:'Latte',vol:'200 мл.',eur:2.50},{bg:'Кафе с мляко',en:'Coffee with milk',vol:'100 мл.',eur:1.80},{bg:'Мляко с какао',en:'Milk with cocoa',vol:'200 мл.',eur:2.00},{bg:'3в1',en:'3in1',vol:'100 мл.',eur:1.50},{bg:'Чай Билков',en:'Herbal Tea',vol:'200 мл.',eur:1.50},{bg:'Чай Плодов',en:'Fruit Tea',vol:'200 мл.',eur:1.50},{bg:'Английски Черен Чай',en:'English Black Tea',vol:'200 мл.',eur:1.50}]},
+{id:'hot-plant',bg:'Топли Напитки с Ядково Мляко',en:'Hot Drinks — Plant Milk',note:{bg:'овес · бадем · кокос',en:'oat · almond · coconut'},items:[{bg:'Кафе с мляко',en:'Coffee with milk',dbg:'овес, бадем, кокос',den:'oat, almond, coconut',vol:'100 мл.',eur:1.80},{bg:'Капучино',en:'Cappuccino',dbg:'овес, бадем, кокос',den:'oat, almond, coconut',vol:'200 мл.',eur:3.00},{bg:'Мляко с какао',en:'Milk with cocoa',dbg:'овес, бадем, кокос',den:'oat, almond, coconut',vol:'200 мл.',eur:3.00},{bg:'Мляко с нес',en:'Milk with Nescafe',dbg:'овес, бадем, кокос',den:'oat, almond, coconut',vol:'200 мл.',eur:3.00}]},
+{id:'cold',bg:'Студени Напитки',en:'Cold Drinks',items:[{bg:'Фрапе с мляко',en:'Frappe with milk',vol:'250 мл.',eur:2.50},{bg:'Черно фрапе',en:'Black Frappe',vol:'250 мл.',eur:2.00},{bg:'Фреш портокал',en:'Fresh Orange',vol:'250 мл.',eur:3.50},{bg:'Фреш грейпфрут',en:'Fresh Grapefruit',vol:'250 мл.',eur:3.50},{bg:'Фреш микс',en:'Fresh Mix',vol:'250 мл.',eur:3.50},{bg:'Ред Бул Кен',en:'Red Bull Can',vol:'250 мл.',eur:3.50},{bg:'Протеинов Шейк',en:'Protein Shake',dbg:'бисквитка, шоколад, ягода, банан',den:'cookie, chocolate, strawberry, banana',vol:'300 мл.',eur:3.50},{bg:'Млечен Шейк',en:'Milkshake',dbg:'ягода, банан, ванилия, шоколад',den:'strawberry, banana, vanilla, chocolate',vol:'300 мл.',eur:3.50}]},
+{id:'iced',bg:'Айс Напитки',en:'Iced Drinks',items:[{bg:'Айс Кола',en:'Ice Coca-Cola',vol:'300 мл.',eur:3.50},{bg:'Айс Нектар',en:'Ice Nectar',vol:'300 мл.',eur:3.50},{bg:'Айс Кафе',en:'Ice Coffee',vol:'250 мл.',eur:3.50},{bg:'Айс Фрапе',en:'Ice Frappe',vol:'300 мл.',eur:3.50}]},
+{id:'soft',bg:'Безалкохолни Напитки',en:'Soft Drinks',items:[{bg:'Кока Кола Продукти',en:'Coca-Cola Products',vol:'250 мл.',eur:1.80},{bg:'Кока Кола Продукти Кен',en:'Coca-Cola Products Can',vol:'330 мл.',eur:1.80},{bg:'Кока Кола Продукти ПВЦ',en:'Coca-Cola Products PET',vol:'500 мл.',eur:1.80},{bg:'Газирана Вода',en:'Soda',vol:'250 мл.',eur:1.50},{bg:'Минерална Вода',en:'Mineral Water',vol:'500 мл.',eur:1.30},{bg:'Минерална Вода',en:'Mineral Water',vol:'330 мл.',eur:1.00},{bg:'Сок "Cappy"',en:'Natural Juice',vol:'250 мл.',eur:1.80},{bg:'Доматен Сок',en:'Tomato Juice',vol:'250 мл.',eur:1.80},{bg:'Студен Чай Fuzetea',en:'Ice Tea Fuzetea',dbg:'манго и ананас, праскова, лимон, горски плод',den:'mango & pineapple, peach, lemon, forest fruits',vol:'500 мл.',eur:2.00}]},
+{id:'mocktails',bg:'Безалкохолни Коктейли',en:'Mocktails',items:[{bg:'Безалкохолна Мента',en:'Non-Alcoholic Mint',dbg:'безалкохолна мента, спрайт',den:'non-alcoholic mint, sprite',vol:'300 мл.',eur:3.50},{bg:'Тропикал',en:'Tropical',dbg:'безалкохолна мента, мляко',den:'non-alcoholic mint, milk',vol:'250 мл.',eur:3.50},{bg:'Тропикал 2',en:'Tropical 2',dbg:'сок портокал, сок праскова, гренадин',den:'orange juice, peach juice, grenadine',vol:'250 мл.',eur:3.50},{bg:'Цитронада',en:'Citronade',dbg:'фреш лимон, захарен сироп, сода',den:'lemon fresh, sugar syrup, soda',vol:'250 мл.',eur:3.50},{bg:'Оранжада',en:'Orangeade',dbg:'фреш портокал, захарен сироп, сода',den:'orange fresh, sugar syrup, soda',vol:'250 мл.',eur:3.50},{bg:'Безалкохолно Мохито',en:'Non-Alcoholic Mojito',dbg:'мента, сироп мохито, сода',den:'mint, mojito syrup, soda',vol:'250 мл.',eur:3.50},{bg:'Лимонада',en:'Lemonade',dbg:'бъз, лайм, ягода, мента, малина, горски плод, праскова',den:'elderberry, lime, strawberry, mint, raspberry, forest fruit, peach',vol:'400 мл.',eur:3.00}]},
+{id:'cocktails',bg:'Алкохолни Коктейли',en:'Cocktails',items:[{bg:'Текила Сънрайз',en:'Tequila Sunrise',dbg:'текила, сок портокал, гренадин',den:'tequila, orange juice, grenadine',vol:'250 мл.',eur:6.00},{bg:'Маргарита',en:'Margarita',dbg:'текила, коантро, лимонов сок',den:'tequila, cointreau, lemon juice',vol:'200 мл.',eur:6.00},{bg:'Санто Либре',en:'Santo Libre',dbg:'текила, кола, лимонов сок',den:'tequila, cola, lemon juice',vol:'250 мл.',eur:6.00},{bg:'Зелена Отрова',en:'Green Poison',dbg:'текила, портокал, лимонов сок, кюрасо, ананас',den:'tequila, orange, lemon juice, curacao, pineapple',vol:'250 мл.',eur:6.00},{bg:'Синя Лагуна',en:'Blue Lagoon',dbg:'водка, кюрасо, спрайт, лед',den:'vodka, curacao, sprite, ice',vol:'250 мл.',eur:6.00},{bg:'Блъди Мери',en:'Bloody Mary',dbg:'водка, доматен сок, лимонов сок, табаско, лед',den:'vodka, tomato juice, lemon juice, tabasco, ice',vol:'250 мл.',eur:6.00},{bg:'Секс на Плажа',en:'Sex on the Beach',dbg:'водка, шнапс портокал, гренадин',den:'vodka, schnapps, grenadine',vol:'250 мл.',eur:6.00},{bg:'Том Колинс',en:'Tom Collins',dbg:'водка, фреш лимон, сода, захарен сироп',den:'vodka, lemon fresh, soda, sugar syrup',vol:'250 мл.',eur:6.00},{bg:'Аперол Шприц',en:'Aperol Spritz',dbg:'Аперол Шпритс, Сода, Розе',den:'Aperol Spritz, Sparkling Water, Rose wine',vol:'250 мл.',eur:6.00},{bg:'Дайкири с Ром',en:'Daiquiri with Rum',dbg:'ром, лимонов сок, захарен сироп, натрошен лед',den:'rum, lemon juice, sugar suryp, crushed ice',vol:'250 мл.',eur:6.00},{bg:'Куба Либре',en:'Cuba Libre',dbg:'ром, лимонов сок, кола, лед',den:'rum, lemon juice, cola, ice',vol:'250 мл.',eur:6.00},{bg:'Ягодово Дайкири',en:'Strawberry Daiquiri',dbg:'ром, лимонов сок, захарен сироп, сироп ягода',den:'rum, lemon juice, sugar syrup, strawberry syrup',vol:'250 мл.',eur:6.00},{bg:'Пина Колада',en:'Pina Colada',dbg:'ром, кокосов ликьор, ананасов сок, лед, сметана',den:'rum, coconut liqueur, pineapple juice, ice, cream',vol:'250 мл.',eur:6.00},{bg:'Розов Ром',en:'Pink Rum',dbg:'ром, тоник, лимонов сок, гренадин',den:'rum, tonic, lemon juice, grenadine',vol:'250 мл.',eur:6.00},{bg:'Мохито',en:'Mojito',vol:'250 мл.',eur:6.00},{bg:'Крис',en:'Chris',dbg:'джин, кокос, ананас, тоник',den:'gin, coconut, pineapple, tonic',vol:'250 мл.',eur:6.00},{bg:'Джин Фис',en:'Gin Fizz',dbg:'джин, лимонов сок, сода, лед',den:'gin, lemon juice, soda, ice',vol:'250 мл.',eur:6.00},{bg:'Мартини',en:'Martini',dbg:'джин, Мартини, лимонов сок',den:'gin, martini, lemon juice',vol:'200 мл.',eur:6.00},{bg:'Кампари Ориндж',en:'Campari Orange',dbg:'Кампари, сок портокал',den:'Campari, orange juice',vol:'250 мл.',eur:6.00}]},
+{id:'beer-bg',bg:'Бира',en:'Beer',items:[{bg:'Шуменско Наливно',en:'Shumensko Draft',vol:'330 мл.',eur:1.80},{bg:'Шуменско Наливно',en:'Shumensko Draft',vol:'500 мл.',eur:2.00},{bg:'Шуменско',en:'Shumensko',vol:'500 мл.',eur:2.00},{bg:'Шуменско Бомбичка',en:'Shumensko Special',vol:'330 мл.',eur:1.80},{bg:'Пиринско',en:'Pirinsko',vol:'500 мл.',eur:2.00},{bg:'Пиринско Младо Пиво',en:'Pirinsko Young Beer',vol:'330 мл.',eur:1.80},{bg:'Бургаско, Каменица, Загорка',en:'Burgasko, Kamenitza, Zagorka',vol:'500 мл.',eur:2.00}]},
+{id:'beer-import',bg:'Бира Внос',en:'Import Beer',items:[{bg:'Туборг',en:'Tuborg',vol:'500 мл.',eur:2.50},{bg:'Будвайзер Будвайсер',en:'Budweiser Budwar',vol:'500 мл.',eur:2.50},{bg:'Карлсберг',en:'Carlsberg',vol:'500 мл.',eur:2.50},{bg:'Жатецки Хус',en:'Zatetski Hus',vol:'500 мл.',eur:2.50},{bg:'Карлсберг Безалкохолна',en:'Carlsberg Non-Alcoholic',vol:'500 мл.',eur:2.50},{bg:'Самърсби',en:'Somersby',vol:'330 мл.',eur:2.50}]},
+{id:'wine',bg:'Вино',en:'Wine',items:[{bg:'Шардоне, Траминер (Чаша)',en:'Chardonnay, Traminer (Glass)',dbg:'Бяло вино',den:'White wine',vol:'150 мл.',eur:1.79},{bg:'Каберне, Мерло (Чаша)',en:'Cabernet, Merlot (Glass)',dbg:'Червено вино',den:'Red wine',vol:'150 мл.',eur:1.79}]},
+{id:'whiskey-bg',bg:'Уиски',en:'Whiskey',items:[{bg:'Уиски',en:'Whiskey',vol:'50 мл.',eur:2.00}]},
+{id:'whiskey-import',bg:'Уиски Внос',en:'Import Whiskey',items:[{bg:'Джони Уокър',en:'Johnnie Walker',vol:'50 мл.',eur:2.50},{bg:'100 Гайди',en:'100 Pipers',vol:'50 мл.',eur:2.50},{bg:'Балантайс',en:'Balantines',vol:'50 мл.',eur:2.50},{bg:'Чивас Регал',en:'Chivas Regal',vol:'50 мл.',eur:3.50},{bg:'J&B',en:'J&B',vol:'50 мл.',eur:2.50},{bg:'Тюламор Дю',en:'Tullamore Dew',vol:'50 мл.',eur:2.50},{bg:'Джеймисън',en:'Jameson',vol:'50 мл.',eur:2.50},{bg:'Бушмилс',en:'Bushmills',vol:'50 мл.',eur:2.50},{bg:'Джак Даниелс',en:'Jack Daniels',vol:'50 мл.',eur:3.50},{bg:'Джим Бийм',en:'Jim Beam',vol:'50 мл.',eur:2.50},{bg:'4 Рози',en:'4 Roses',vol:'50 мл.',eur:2.50}]},
+{id:'vodka-gin',bg:'Водка & Джин',en:'Vodka & Gin',items:[{bg:'Джин Внос',en:'Imported Gin',vol:'50 мл.',eur:2.50},{bg:'Водка Внос',en:'Imported Vodka',vol:'50 мл.',eur:2.50},{bg:'Водка БГ',en:'Vodka BG',vol:'50 мл.',eur:1.50},{bg:'Джин БГ',en:'Gin BG',vol:'50 мл.',eur:1.50}]},
+{id:'rum',bg:'Ром',en:'Rum',items:[{bg:'Ром',en:'Rum',dbg:'бял, червен',den:'white, red',vol:'50 мл.',eur:1.50},{bg:'Бакарди',en:'Bacardi',vol:'50 мл.',eur:3.00}]},
+{id:'vermouth',bg:'Вермут',en:'Vermouth',items:[{bg:'Кампари',en:'Campari',vol:'50 мл.',eur:2.50},{bg:'Мартини Бяло, Драй',en:'Martini Bianco, Dry',vol:'50 мл.',eur:2.00}]},
+{id:'liqueurs',bg:'Ликьори',en:'Liqueurs',items:[{bg:'Бейлис',en:'Bayleys',vol:'50 мл.',eur:3.00},{bg:'Малибу',en:'Malibu',vol:'50 мл.',eur:3.00},{bg:'Шнапс',en:'Schnaps',dbg:'праскова, кокос',den:'peach, coconut',vol:'50 мл.',eur:1.50},{bg:'Мента',en:'Mint',vol:'50 мл.',eur:1.50},{bg:'Тия Мария',en:'Tia Maria',vol:'50 мл.',eur:3.00},{bg:'Маргот',en:'Margot',vol:'50 мл.',eur:3.00},{bg:'Калуа',en:'Kahlua',vol:'50 мл.',eur:3.00},{bg:'Йегермайстер',en:'Jagermaister',vol:'50 мл.',eur:3.00}]},
+{id:'spirits',bg:'Алкохол',en:'Spirits',items:[{bg:'Българска Мастика',en:'Bulgarian Mastika',vol:'50 мл.',eur:1.50},{bg:'Узо Пломари / Узо "12"',en:'Ouzo Plomari / Ouzo "12"',vol:'50 мл.',eur:2.00},{bg:'Бренди Плиска',en:'Brandy Pliska',vol:'50 мл.',eur:2.00},{bg:'Текила БГ',en:'Tequila BG',vol:'25 мл.',eur:1.00},{bg:'Ракия Маркова',en:'Branded Rakia',vol:'50 мл.',eur:2.00},{bg:'Ракия Обикновена',en:'Ordinary Rakia',vol:'50 мл.',eur:1.50}]},
+{id:'desserts',bg:'Десерти',en:'Desserts',items:[{bg:'Топка сладолед',en:'Ice Cream ball',dbg:'ванилия, шоколад, ягода',den:'vanilla, choco, strawberry',vol:'100 ml.',eur:1.50},{bg:'Сладолед (3 топки)',en:'Ice Cream (3 scoops)',dbg:'ванилия, шоколад, ягода',den:'vanilla, choco, strawberry',vol:'300 мл.',eur:4.00},{bg:'Мелба Крис',en:'Sundae Kris',vol:'350 гр.',eur:7.00},{bg:'Мелба Банан',en:'Sundae Banana',vol:'350 гр.',eur:7.00},{bg:'Плодова Салата',en:'Fruit Salad',vol:'350 гр.',eur:7.00}]},
+{id:'nuts',bg:'Ядки',en:'Nuts',items:[{bg:'Фъстъци',en:'Peanuts',vol:'70 гр.',eur:2.00},{bg:'Бадеми',en:'Almonds',vol:'70 гр.',eur:3.00},{bg:'Кашу',en:'Cashew',vol:'70 гр.',eur:3.00}]},
 ];
 let lang="bg";
 function bgn(e){return(Math.round(e*195.583)/100).toFixed(2);}
