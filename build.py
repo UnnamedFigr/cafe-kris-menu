@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 build.py — Reads the Excel menu file and updates index.html automatically.
 
@@ -32,13 +32,13 @@ CATEGORY_MAP = {
     "Бира / Beer":                        ("beer-bg",        "Бира",                          "Beer",                  None,                    None,                     8),
     "Бира Внос / Import Beer":            ("beer-import",    "Бира Внос",                     "Import Beer",           None,                    None,                     9),
     "Вино / Wine":                        ("wine",           "Вино",                          "Wine",                  None,                    None,                    10),
-    "Уиски / Whiskey":                    ("whiskey-bg",     "Уиски",                         "Whiskey",               None,                    None,                    11),
-    "Уйски Внос / Import Whiskey":        ("whiskey-import", "Уиски Внос",                    "Import Whiskey",        None,                    None,                    12),
-    "Водка & Джин / Vodka & Gin":         ("vodka-gin",      "Водка & Джин",                  "Vodka & Gin",           None,                    None,                    13),
-    "Ром / Rum":                          ("rum",            "Ром",                           "Rum",                   None,                    None,                    14),
-    "Вермут / Vermouth":                  ("vermouth",       "Вермут",                        "Vermouth",              None,                    None,                    15),
-    "Ликьори / Liqueurs":                 ("liqueurs",       "Ликьори",                       "Liqueurs",              None,                    None,                    16),
-    "Алкохол / Alcohol":                  ("spirits",        "Алкохол",                       "Spirits",               None,                    None,                    17),
+    "Алкохол / Alcohol":                  ("spirits",        "Алкохол",                       "Spirits",               None,                    None,                    11),
+    "Уиски / Whiskey":                    ("whiskey-bg",     "Уиски",                         "Whiskey",               None,                    None,                    12),
+    "Уйски Внос / Import Whiskey":        ("whiskey-import", "Уиски Внос",                    "Import Whiskey",        None,                    None,                    13),
+    "Водка & Джин / Vodka & Gin":         ("vodka-gin",      "Водка & Джин",                  "Vodka & Gin",           None,                    None,                    14),
+    "Ром / Rum":                          ("rum",            "Ром",                           "Rum",                   None,                    None,                    15),
+    "Вермут / Vermouth":                  ("vermouth",       "Вермут",                        "Vermouth",              None,                    None,                    16),
+    "Ликьори / Liqueurs":                 ("liqueurs",       "Ликьори",                       "Liqueurs",              None,                    None,                    17),
     "Десерти / Desserts":                 ("desserts",       "Десерти",                       "Desserts",              None,                    None,                    18),
     "Ядки / Nuts":                        ("nuts",           "Ядки",                          "Nuts",                  None,                    None,                    19),
 }
@@ -127,15 +127,11 @@ def build_menu_js(excel_path: Path) -> str:
 
 def inject_into_html(html_path: Path, menu_js: str):
     html = html_path.read_text(encoding="utf-8")
-    new_html = re.sub(
-        r"const MENU=\[.*?\];",
-        menu_js,
-        html,
-        flags=re.DOTALL,
-    )
-    if new_html == html:
+    pattern = r"const MENU=\[.*?\];"
+    if not re.search(pattern, html, flags=re.DOTALL):
         print("ERROR: Could not find 'const MENU=[...]' block in index.html", file=sys.stderr)
         sys.exit(1)
+    new_html = re.sub(pattern, menu_js, html, flags=re.DOTALL)
     html_path.write_text(new_html, encoding="utf-8")
 
 
